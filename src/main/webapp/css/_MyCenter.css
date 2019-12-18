@@ -1,0 +1,70 @@
+.header{
+    margin: 0px;
+    padding: 0px;
+    background-color: whitesmoke;
+    height: 50px;
+    width: 100%;
+    min-width: 1920px;
+    position: fixed;
+    z-index: 9999;
+    left:0px;
+    top:0px;
+    -moz-box-shadow: 2px 2px 10px #909090;
+    -webkit-box-shadow: 2px 2px 10px #909090;
+    box-shadow:2px 2px 10px #909090;
+}
+
+.major{
+    -moz-box-shadow: 10px 10px 10px #909090;
+    -webkit-box-shadow: 10px 10px 10px #909090;
+    box-shadow:10px 10px 10px #909090;
+    margin-top: 80px;
+    margin-left: 338px;
+    padding: 10px;
+    background-color: white;
+    text-align: center;
+    /* border: #000000 solid 1px; */
+    width: 88%;
+    overflow:auto;
+    /* height: 1100px; */
+}
+.MenuOptions{
+    margin: 0px;
+    padding: 0px;
+    /* border: #000000 solid 1px; */
+    height: 40px;
+}
+.personal-data,.edit-data,.fens-data,.attention-data,.remark-data,.set-data{
+    color: #000000;
+    font-size: 25px;
+    font-family: "microsoft yahei";
+    float: left;
+    /* border: #000000 solid 1px; */
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    width: 200px;
+}
+.personal-data-page,.edit-data-page,.fens-data-page,.remark-data-page,.attention-data-page,.set-data-page{
+    font-size: 25px;
+    font-family: "microsoft yahei";
+    float: left;
+    /* border: #000000 solid 1px; */
+    margin: 0px;
+    padding: 0px;
+    /* height: 800px; */
+    width: 100%;
+    background-color: white;
+}
+
+.footer{
+    margin-top: 10px;
+    margin-left: 338px;
+    padding: 10px;
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    /* border: #000000 solid 1px; */
+    width: 88%;
+    height: 30px;
+}

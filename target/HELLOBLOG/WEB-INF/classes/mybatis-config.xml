@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!--    <settings>-->
+<!--        &lt;!&ndash; 打开延迟加载的开关 &ndash;&gt;-->
+<!--        <setting name="lazyLoadingEnabled" value="true" />-->
+<!--        &lt;!&ndash; 将积极加载改为消息加载即按需加载 &ndash;&gt;-->
+<!--        <setting name="aggressiveLazyLoading" value="false"/>-->
+<!--        &lt;!&ndash; 启动二级缓存 &ndash;&gt;-->
+<!--        <setting name="cacheEnabled" value="true"/>-->
+<!--    </settings>-->
+    <typeAliases>
+        <package name="com.helloblog.domain"/>
+    </typeAliases>
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+        </plugin>
+    </plugins>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="C3P0DataSourceFactory"><!-- type="POOLED" -->
+                <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/hellobloginfo?characterEncoding=UTF-8"/>
+                <property name="user" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="com/helloblog/dao/BloggerMapper.xml"/>
+        <mapper resource="com/helloblog/dao/ArticleMapper.xml"/>
+        <mapper resource="com/helloblog/dao/RemarkMapper.xml"/>
+<!--        <mapper resource="com/helloblog/dao/Product.xml"/>-->
+<!--        <mapper resource="com/helloblog/dao/Order.xml"/>-->
+<!--        <mapper resource="com/helloblog/dao/OrderItem.xml"/>-->
+    </mappers>
+</configuration>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.helloblog.dao.ArticleMapper">
+
+  <resultMap id="articles" type="com.helloblog.domain.Article">
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="blogid" jdbcType="INTEGER" property="blogid" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="like" jdbcType="INTEGER" property="like" />
+    <result column="publictime" jdbcType="TIMESTAMP" property="publictime" />
+  </resultMap>
+
+  <!-- 查询所有文章显示与公开界面chief -->
+  <select id="selectArticleLists" resultMap="articles">
+    select * from t_article
+  </select>
+
+  <!-- 查询某篇文章通过artid -->
+  <select id="selectOneArticle" parameterType="java.lang.Integer" resultType="com.helloblog.domain.Article">
+    select * from t_article where artid = #{artid}
+  </select>
+
+  <!-- 获取某篇文章当前点赞数量 -->
+  <select id="selectOneArticleLike" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select t.like from t_article as t where t.artid = #{artid}
+  </select>
+
+  <!-- 给谋篇文章点赞数量加1 -->
+  <update id="addOneLikeOfArticle" parameterType="java.lang.Integer">
+    update t_article as t set t.like = t.like + 1 where t.artid = #{artid}
+  </update>
+
+  <!-- 查询所有文章显示与公开界面chief -->
+  <select id="selectArticleList" parameterType="java.lang.Integer" resultMap="articles">
+    select * from t_article where blogid = #{blogid}
+  </select>
+
+  <!-- 根据博主id和文章题目获得文章 -->
+  <select id="selectArticle" resultType="com.helloblog.domain.Article">
+    select * from t_article where blogid = #{blogid,jdbcType=INTEGER} and title = #{title,jdbcType=VARCHAR}
+  </select>
+
+  <!-- 在数据库中新增加一篇博客 -->
+  <insert id="insertOneArticle" parameterType="com.helloblog.domain.Article">
+    insert into t_article values (#{artid,jdbcType=INTEGER},#{blogid,jdbcType=INTEGER},#{title,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{like,jdbcType=INTEGER},#{publictime,jdbcType=TIMESTAMP});
+  </insert>
+
+  <!-- 删除一篇文章在数据库中国 -->
+  <delete id="deleteOneArticle" parameterType="java.lang.Integer">
+    delete from t_article where artid = #{artid}
+  </delete>
+
+
+
+
+
+<!--  <resultMap id="BaseResultMap" type="com.helloblog.domain.Article">-->
+<!--    <id column="artid" jdbcType="INTEGER" property="artid" />-->
+<!--    <result column="blogid" jdbcType="INTEGER" property="blogid" />-->
+<!--    <result column="title" jdbcType="VARCHAR" property="title" />-->
+<!--    <result column="type" jdbcType="VARCHAR" property="type" />-->
+<!--    <result column="like" jdbcType="INTEGER" property="like" />-->
+<!--    <result column="publictime" jdbcType="TIMESTAMP" property="publictime" />-->
+<!--  </resultMap>-->
+<!--  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.helloblog.domain.Article">-->
+<!--    <result column="content" jdbcType="LONGVARCHAR" property="content" />-->
+<!--  </resultMap>-->
+<!--  <sql id="Base_Column_List">-->
+<!--    artid, blogid, title, type, like, publictime-->
+<!--  </sql>-->
+<!--  <sql id="Blob_Column_List">-->
+<!--    content-->
+<!--  </sql>-->
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    ,-->
+<!--    <include refid="Blob_Column_List" />-->
+<!--    from t_article-->
+<!--    where artid = #{artid,jdbcType=INTEGER}-->
+<!--  </select>-->
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+<!--    delete from t_article-->
+<!--    where artid = #{artid,jdbcType=INTEGER}-->
+<!--  </delete>-->
+<!--  <insert id="insert" parameterType="com.helloblog.domain.Article">-->
+<!--    insert into t_article (artid, blogid, title, -->
+<!--      type, like, publictime, -->
+<!--      content)-->
+<!--    values (#{artid,jdbcType=INTEGER}, #{blogid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, -->
+<!--      #{type,jdbcType=VARCHAR}, #{like,jdbcType=INTEGER}, #{publictime,jdbcType=TIMESTAMP}, -->
+<!--      #{content,jdbcType=LONGVARCHAR})-->
+<!--  </insert>-->
+<!--  <insert id="insertSelective" parameterType="com.helloblog.domain.Article">-->
+<!--    insert into t_article-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides=",">-->
+<!--      <if test="artid != null">-->
+<!--        artid,-->
+<!--      </if>-->
+<!--      <if test="blogid != null">-->
+<!--        blogid,-->
+<!--      </if>-->
+<!--      <if test="title != null">-->
+<!--        title,-->
+<!--      </if>-->
+<!--      <if test="type != null">-->
+<!--        type,-->
+<!--      </if>-->
+<!--      <if test="like != null">-->
+<!--        like,-->
+<!--      </if>-->
+<!--      <if test="publictime != null">-->
+<!--        publictime,-->
+<!--      </if>-->
+<!--      <if test="content != null">-->
+<!--        content,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides=",">-->
+<!--      <if test="artid != null">-->
+<!--        #{artid,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="blogid != null">-->
+<!--        #{blogid,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="title != null">-->
+<!--        #{title,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="type != null">-->
+<!--        #{type,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="like != null">-->
+<!--        #{like,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="publictime != null">-->
+<!--        #{publictime,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--      <if test="content != null">-->
+<!--        #{content,jdbcType=LONGVARCHAR},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.helloblog.domain.Article">-->
+<!--    update t_article-->
+<!--    <set>-->
+<!--      <if test="blogid != null">-->
+<!--        blogid = #{blogid,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="title != null">-->
+<!--        title = #{title,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="type != null">-->
+<!--        type = #{type,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="like != null">-->
+<!--        like = #{like,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="publictime != null">-->
+<!--        publictime = #{publictime,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--      <if test="content != null">-->
+<!--        content = #{content,jdbcType=LONGVARCHAR},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where artid = #{artid,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.helloblog.domain.Article">-->
+<!--    update t_article-->
+<!--    set blogid = #{blogid,jdbcType=INTEGER},-->
+<!--      title = #{title,jdbcType=VARCHAR},-->
+<!--      type = #{type,jdbcType=VARCHAR},-->
+<!--      like = #{like,jdbcType=INTEGER},-->
+<!--      publictime = #{publictime,jdbcType=TIMESTAMP},-->
+<!--      content = #{content,jdbcType=LONGVARCHAR}-->
+<!--    where artid = #{artid,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.helloblog.domain.Article">-->
+<!--    update t_article-->
+<!--    set blogid = #{blogid,jdbcType=INTEGER},-->
+<!--      title = #{title,jdbcType=VARCHAR},-->
+<!--      type = #{type,jdbcType=VARCHAR},-->
+<!--      like = #{like,jdbcType=INTEGER},-->
+<!--      publictime = #{publictime,jdbcType=TIMESTAMP}-->
+<!--    where artid = #{artid,jdbcType=INTEGER}-->
+<!--  </update>-->
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.helloblog.dao.FensMapper">
+
+    <!-- 向数据库添加关注的人 -->
+    <insert id="insertCare" parameterType="com.helloblog.domain.Fens">
+        insert into t_fens (fensid,careid) values (#{fensid,jdbcType=INTEGER},#{careid,jdbcType=INTEGER});
+    </insert>
+
+    <!-- 向数据库删除所关注的人 -->
+    <delete id="deleteCare" parameterType="com.helloblog.domain.Fens">
+        delete from t_fens where fensid=#{fensid,jdbcType=INTEGER} and careid=#{careid,jdbcType=INTEGER};
+    </delete>
+
+    <!-- 查找id的所有粉丝id -->
+    <select id="selectAllFensid" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select fensid from t_fens where careid=#{blogid};
+    </select>
+
+    <!-- 查找id的所关注的所有人 -->
+    <select id="selectAllCareid" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select careid from t_fens where fensid=#{blogid};
+    </select>
+
+    <!-- 查找某个fens是否存在 -->
+    <select id="isFens" parameterType="com.helloblog.domain.Fens" resultType="java.lang.Integer">
+        select count(*) from t_fens where fensid=#{fensid} and careid=#{careid};
+    </select>
+</mapper>

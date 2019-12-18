@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>管理员界面</title>
+</head>
+<body onload="initBody()">
+    <!-- 所有用户信息 -->
+    <table class="layui-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>用户名</th>
+                <th style="width: 80px;">姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>地址</th>
+                <th>加入时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="allUser" >
+
+        </tbody>
+    </table>
+</body>
+    <!-- 相关图标引入 -->
+    <script url="https://heerey525.github.io/layui-v2.4.3/layui-v2.4.5/layui.js"></script>
+    <link rel="stylesheet" href="https://heerey525.github.io/layui-v2.4.3/layui-v2.4.5/css/layui.css" media="all" />
+
+    <script type="text/javascript" src='js/_ajaxTools.js'></script>
+
+    <!-- 用户操作相关 js -->
+    <script type="text/javascript">
+        <!-- 用户删除操作 -->
+        function deleteUser(id,blogid){
+            if(confirm("确认删除！！！") == true){
+                ajaxSendMessage("post","removeOneBlogger","blogid="+blogid,function (ajax) {
+                    alert("删除成功");
+                    document.getElementById(id).remove();
+                },false);
+            }
+        }
+
+        <!-- 用户查看 -->
+        function searchUser(){ //点击进入用户文章列表
+
+        }
+    </script>
+
+    <!-- 页面初始化相关 -->
+    <script type="text/javascript">
+
+        <!-- 加载所有用户信息 -->
+        function loadUser(){
+            ajaxSendMessage("post","rootListAllUser",null,function(ajax) {
+                var data = JSON.parse(ajax.responseText);
+                var tbody = document.getElementById("allUser");
+                tbody.innerHTML = "";
+                for(var i = 0 ; i < data.bloggers.length ; i++){
+                    tbody.appendChild(userItem(data.bloggers[i]));
+                }
+
+            },false);
+        }
+
+        function userItem(USER){
+            var tr = document.createElement("tr");
+
+            var td = [];
+            for(var i = 0 ; i < 8 ; i++){
+                td[i] = document.createElement("td");
+            }
+
+            var look = document.createElement("a");
+            var dele = document.createElement("a");
+
+            tr.id = USER['blogid'];
+            td[0].innerText = USER['blogid'];
+            td[1].innerText = USER['username'];
+            td[2].innerText = USER['name'];
+            td[3].innerText = USER['sex'];
+            td[4].innerText = USER['age'];
+            td[5].innerText = USER['address'];
+            td[6].innerText = new Date(USER['registerdate'].time);
+
+            look.style.cursor  = "pointer";
+            dele.style.cursor = "pointer";
+
+            look.innerText = "查看/";
+            dele.innerText = "删除";
+
+            dele.onclick = function(){
+                deleteUser(tr.id,USER['blogid']);
+            }
+
+            look.onclick = function () {
+                var HisPage = document.createElement("a");
+                HisPage.href = "inPersonPage?fensBlogid="+USER['blogid']; //这里fensBlogId是从首页进入文章时博主的id
+                HisPage.click();
+            }
+
+            td[7].appendChild(look);
+            td[7].appendChild(dele);
+
+            for(var i = 0 ; i < 8 ; i++){
+                tr.appendChild(td[i]);
+            }
+            return tr;
+        }
+
+        function initBody(){
+            loadUser();
+            //document.getElementById("allUser").appendChild(userItem(User));
+        }
+    </script>
+</html>

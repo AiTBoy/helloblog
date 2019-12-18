@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.helloblog.dao.RemarkMapper">
+
+  <resultMap id="remarks" type="com.helloblog.domain.Remark">
+    <id column="remarkid" jdbcType="INTEGER" property="remarkid" />
+    <result column="artid" jdbcType="INTEGER" property="artid" />
+    <result column="remarkblogid" jdbcType="INTEGER" property="remarkblogid" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="praise" jdbcType="INTEGER" property="praise" />
+    <result column="datetime" jdbcType="TIMESTAMP" property="datetime" />
+  </resultMap>
+
+  <!-- 向数据库中插入一条评论记录 -->
+  <insert id="insertOneRemark" parameterType="com.helloblog.domain.Remark">
+    insert into
+    t_remark (remarkid,artid,remarkblogid,content,praise,datetime)
+    values (#{remarkid,jdbcType=INTEGER},#{artid,jdbcType=INTEGER},#{remarkblogid,jdbcType=INTEGER},
+            #{content,jdbcType=VARCHAR} ,#{praise,jdbcType=INTEGER} ,#{datetime,jdbcType=TIMESTAMP});
+  </insert>
+
+  <!-- 查找指定remarkid 是否存在 -->
+  <select id="remarkid" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
+    select count(*) from t_remark where remarkid = #{remarkid}
+  </select>
+
+  <!-- 通过指定文章id查询数据库中所有评论 -->
+  <select id="selectremarks" parameterType="java.lang.Integer" resultMap="remarks">
+    select * from t_remark where artid = #{artid}
+  </select>
+
+  <!-- 通过指定blogid查询数据库中所有评论 -->
+  <select id="selectremarksbyblogid" parameterType="java.lang.Integer" resultMap="remarks">
+    select * from t_remark where remarkblogid = #{remarkblogid}
+  </select>
+
+    <!-- 给某条评论的赞增加 1 -->
+  <update id="addOneLikeOfRemark" parameterType="java.lang.Integer">
+    update t_remark as t set t.praise = t.praise + 1 where t.remarkid = #{remarkid}
+  </update>
+
+    <!-- 获取某条评论当前点赞数量 -->
+  <select id="selectOneRemarkLike" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select t.praise from t_remark as t where t.remarkid = #{remarkid}
+  </select>
+
+  <!-- 从数据库中删除某条评论 -->
+  <delete id="deleteOneRemark" parameterType="java.lang.Integer">
+    delete from t_remark where remarkid = #{remarkid}
+  </delete>
+
+
+
+
+
+<!--  <sql id="Base_Column_List">-->
+<!--    remarkid, artid, remarkblogid, content, like, datetime-->
+<!--  </sql>-->
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from t_remark-->
+<!--    where remarkid = #{remarkid,jdbcType=INTEGER}-->
+<!--  </select>-->
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+<!--    delete from t_remark-->
+<!--    where remarkid = #{remarkid,jdbcType=INTEGER}-->
+<!--  </delete>-->
+<!--  <insert id="insert" parameterType="com.helloblog.domain.Remark">-->
+<!--    insert into t_remark (remarkid, artid, remarkblogid, -->
+<!--      content, like, datetime-->
+<!--      )-->
+<!--    values (#{remarkid,jdbcType=INTEGER}, #{artid,jdbcType=INTEGER}, #{remarkblogid,jdbcType=INTEGER}, -->
+<!--      #{content,jdbcType=VARCHAR}, #{like,jdbcType=INTEGER}, #{datetime,jdbcType=TIMESTAMP}-->
+<!--      )-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.helloblog.domain.Remark">-->
+<!--    update t_remark-->
+<!--    <set>-->
+<!--      <if test="artid != null">-->
+<!--        artid = #{artid,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="remarkblogid != null">-->
+<!--        remarkblogid = #{remarkblogid,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="content != null">-->
+<!--        content = #{content,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="like != null">-->
+<!--        like = #{like,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="datetime != null">-->
+<!--        datetime = #{datetime,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where remarkid = #{remarkid,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.helloblog.domain.Remark">-->
+<!--    update t_remark-->
+<!--    set artid = #{artid,jdbcType=INTEGER},-->
+<!--      remarkblogid = #{remarkblogid,jdbcType=INTEGER},-->
+<!--      content = #{content,jdbcType=VARCHAR},-->
+<!--      like = #{like,jdbcType=INTEGER},-->
+<!--      datetime = #{datetime,jdbcType=TIMESTAMP}-->
+<!--    where remarkid = #{remarkid,jdbcType=INTEGER}-->
+<!--  </update>-->
+</mapper>

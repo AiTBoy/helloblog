@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.helloblog.dao.BloggerImageMapper">
+
+    <!-- 向数据库中插入一张图片url-->
+    <insert id="insertImage" parameterType="com.helloblog.domain.BloggerImage">
+        insert into t_bloggerimage values (#{blogid},#{imageurl},#{type})
+    </insert>
+
+    <!-- 向数据库中插入一张图片url-->
+    <select id="isimage" parameterType="com.helloblog.domain.BloggerImage" resultType="java.lang.Integer">
+        select * from t_bloggerimage as t
+            where t.blogid = #{blogid,jdbcType=INTEGER} and t.imageurl = #{imageurl,jdbcType=VARCHAR} and t.type = #{type,jdbcType=INTEGER}
+    </select>
+
+</mapper>

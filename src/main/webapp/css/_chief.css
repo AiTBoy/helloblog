@@ -1,0 +1,108 @@
+.header{
+    margin: 0px;
+    padding: 0px;
+    background-color: whitesmoke;
+    height: 50px;
+    width: 100%;
+    min-width: 1920px;
+    position: fixed;
+    z-index: 9999;
+    left:0px;
+    top:0px;
+    -moz-box-shadow: 2px 2px 10px #909090;
+    -webkit-box-shadow: 2px 2px 10px #909090;
+    box-shadow:2px 2px 10px #909090;
+}
+
+.page{
+    margin: 0px;
+    margin-top: 10px;
+    padding: 0px;
+    background-color: transparent;
+    min-width: 1920px;
+    position:absolute;
+}
+.soma{
+    margin: 20px;
+    margin-left: 120px;
+    margin-right: 120px;
+    padding: 10px;
+    background-color: transparent;
+    width: 88%;
+    display: table;
+
+    /* height: 2000px; */
+}
+.rigt-soma{
+    /*-moz-box-shadow: 2px 2px 10px #909090;*/
+    /*-webkit-box-shadow: 2px 2px 10px #909090;*/
+    /*box-shadow:2px 2px 10px #909090;*/
+    width: 88%;
+    /*border: #000000 solid 1px;*/
+    margin: 0px;
+    margin-left: 110px;
+    margin-right: 120px;
+    /*height: 1200px;*/
+    background-color: white;
+}
+.content,.articletitle{
+    margin: 8px;
+    margin-left: 20px;
+    font-family: "microsoft yahei";
+    font-size:18px;
+    letter-spacing:1px;
+}
+
+.footer,.bloggerheader{
+    margin-top: 10px;
+    margin-left: 120px;
+    padding: 10px;
+    background-color: transparent;
+    color: black;
+    text-align: center;
+    /* border: #000000 solid 1px; */
+    width: 88%;
+    height: 50px;
+}
+.bloggerheader{
+    margin-top: 5px;
+    color: black;
+    font-size: 30px;
+    text-align: left;
+    height: 25px;
+}
+
+
+input {
+    border-left: #fff 1px solid;
+    border-top: #fff 1px solid;
+    border-right: #fff 1px solid;
+    border-bottom: #fff 1px solid;
+    margin: 0px 0px 15px 10px;
+    padding-left: 10px;
+    background: black;
+    float: left;
+    font-size: 1em;
+    line-height: 1.5em;
+    height: 35px;
+    width: 800px;
+    text-align: left;
+    margin-left: 110px;
+}
+
+.L-E-float{
+    -moz-box-shadow: 10px 10px 10px #909090;
+    -webkit-box-shadow: 10px 10px 10px #909090;
+    box-shadow:10px 10px 10px #909090;
+    border: #000000 solid 1px;
+    height: 225px;
+    width: 40px;
+    position: fixed;
+    top: 50px;
+    right: 10px;
+    font-size: 14px;
+}
+
+a{
+    text-decoration: none;
+}

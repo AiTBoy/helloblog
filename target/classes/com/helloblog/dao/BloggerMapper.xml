@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.helloblog.dao.BloggerMapper">
+  <resultMap id="BaseResultMap" type="com.helloblog.domain.Blogger">
+    <id column="blogid" jdbcType="INTEGER" property="blogid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="registerdate" jdbcType="DATE" property="registerdate" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="signature" jdbcType="VARCHAR" property="signature" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    blogid, username, password, registerdate, name, sex, birthday, age, address, signature
+  </sql>
+
+
+  <!-- 用户登陆时匹配 -->
+  <select id="username_password" parameterType="map" resultType="java.lang.Integer">
+        select blogid from t_blogger where username = #{username} and password = #{password}
+  </select>
+
+  <!-- 查找指定blogid 是否存在 -->
+  <select id="blogid" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
+    select count(*) from t_blogger where blogid = #{blogid}
+  </select>
+
+  <!-- 向数据库中插入用户 -->
+  <insert id="insert" parameterType="com.helloblog.domain.Blogger">
+    insert into t_blogger
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+        blogid,username,password,registerdate,
+      <if test="name != null">name,</if> <!--这里有错误记得检查-->
+        sex,birthday,age,
+      <if test="address != null">address,</if>
+      <if test="signature != null">signature,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+        #{blogid,jdbcType=INTEGER},  #{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{registerdate,jdbcType=DATE},
+      <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+        #{sex,jdbcType=VARCHAR},#{birthday,jdbcType=DATE},#{age,jdbcType=INTEGER},
+      <if test="address != null">#{address,jdbcType=VARCHAR},</if>
+      <if test="signature != null">#{signature,jdbcType=VARCHAR},</if>
+    </trim>
+  </insert>
+
+  <!-- 查找指定blogid 的博主信息 -->
+  <select id="selectOneBlogger" parameterType="java.lang.Integer" resultType="com.helloblog.domain.Blogger" >
+    select * from t_blogger where blogid = #{blogid}
+  </select>
+
+  <!-- 修改blogger在数据库中的信息 -->
+  <update id="updateBlogger" parameterType="com.helloblog.domain.Blogger" >
+    update t_blogger as t set t.username = #{username},t.name = #{name}
+                             ,t.sex = #{sex},t.birthday = #{birthday}
+                             ,t.age = #{age},t.address = #{address}
+                             ,t.signature = #{signature}
+                              <if test="password != null" >
+                                ,t.password = #{password}
+                              </if>
+                              where blogid = #{blogid}
+  </update>
+
+  <!-- 查找到所有用户信息 -->
+  <select id="selectAllBlogger" resultType="com.helloblog.domain.Blogger" >
+    select * from t_blogger
+  </select>
+
+  <!-- 删除 某个博主的 信息 -->
+  <delete id="deleteOneBlogger" parameterType="java.lang.Integer">
+    delete from t_blogger
+    where blogid = #{blogid,jdbcType=INTEGER}
+  </delete>
+
+
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from t_blogger-->
+<!--    where blogid = #{blogid,jdbcType=INTEGER}-->
+<!--  </select>-->
+
+<!--  <insert id="insert" parameterType="com.helloblog.domain.Blogger">-->
+<!--    insert into t_blogger (blogid, username, password, -->
+<!--      registerdate, name, sex, -->
+<!--      birthday, age, address, -->
+<!--      signature)-->
+<!--    values (#{blogid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, -->
+<!--      #{registerdate,jdbcType=DATE}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, -->
+<!--      #{birthday,jdbcType=DATE}, #{age,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, -->
+<!--      #{signature,jdbcType=VARCHAR})-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.helloblog.domain.Blogger">-->
+<!--    update t_blogger-->
+<!--    <set>-->
+<!--      <if test="username != null">-->
+<!--        username = #{username,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="password != null">-->
+<!--        password = #{password,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="registerdate != null">-->
+<!--        registerdate = #{registerdate,jdbcType=DATE},-->
+<!--      </if>-->
+<!--      <if test="name != null">-->
+<!--        name = #{name,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="sex != null">-->
+<!--        sex = #{sex,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="birthday != null">-->
+<!--        birthday = #{birthday,jdbcType=DATE},-->
+<!--      </if>-->
+<!--      <if test="age != null">-->
+<!--        age = #{age,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="address != null">-->
+<!--        address = #{address,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="signature != null">-->
+<!--        signature = #{signature,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where blogid = #{blogid,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="updateByPrimaryKey" parameterType="com.helloblog.domain.Blogger">-->
+<!--    update t_blogger-->
+<!--    set username = #{username,jdbcType=VARCHAR},-->
+<!--      password = #{password,jdbcType=VARCHAR},-->
+<!--      registerdate = #{registerdate,jdbcType=DATE},-->
+<!--      name = #{name,jdbcType=VARCHAR},-->
+<!--      sex = #{sex,jdbcType=VARCHAR},-->
+<!--      birthday = #{birthday,jdbcType=DATE},-->
+<!--      age = #{age,jdbcType=INTEGER},-->
+<!--      address = #{address,jdbcType=VARCHAR},-->
+<!--      signature = #{signature,jdbcType=VARCHAR}-->
+<!--    where blogid = #{blogid,jdbcType=INTEGER}-->
+<!--  </update>-->
+</mapper>

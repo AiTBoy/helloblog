@@ -1,0 +1,117 @@
+.header{
+    margin: 0px;
+    padding: 0px;
+    background-color: whitesmoke;
+    height: 50px;
+    width: 100%;
+    position: absolute;
+    left:0px;
+    top:0px;
+    -moz-box-shadow: 2px 2px 10px #909090;
+    -webkit-box-shadow: 2px 2px 10px #909090;
+    box-shadow:2px 2px 10px #909090;
+}
+
+.intermediate{
+    margin-left: 150px;
+}
+
+#menue{
+    float:left;
+    background-color: rgb(245,245,245);
+    width: 10%;height: 400px;
+    box-shadow:2px 2px 10px #909090;
+}
+
+#menue-write{
+    height: 30px;
+    text-align: center;
+    background-color: rgb(51,103,214);
+    margin-top: 30px;
+}
+
+#menue-editor{
+    height: 30px;
+    text-align: center;
+}
+
+#menue-remark{
+    height: 30px;
+    text-align: center;
+}
+
+#menue-set{
+    height: 30px;
+    text-align: center;
+}
+
+#container{
+    float: left;
+    width: 86%;
+    box-shadow:2px 2px 10px #909090;
+}
+
+#write-article-page{
+    margin:15px;
+}
+
+#editor-article-page{
+    margin:15px;
+    display: none;
+}
+
+#editor-article-page-all-item,#editor-article-page-pub-item,#editor-article-page-pri-item{
+    float:left;
+    width: 120px;
+    height: 30px;
+    text-align: center;
+    padding-top: 1px;
+}
+
+#editor-article-page-all,#editor-article-page-pub,#editor-article-page-pri{
+    width: 100%;
+    float: left;
+    min-height: 400px;
+}
+
+#editor-article-page-pub,#editor-article-page-pri{
+    display: none;
+}
+
+#set-article-page{
+    margin:15px;
+    display: none;
+}
+
+#remark-article-page{
+    margin:15px;
+    display: none;
+}
+
+.flowofwhite{
+    height: 200px;
+    backgroud-color: red;
+    width: 100%;
+    float: left;
+}
+.w-e-text-container{ /* //这里设置了了写博客的高度 */
+    height: 700px !important;/*!important是重点，因为原div是行内样式设置的高度300px*/
+}
+
+/*************************************************************************************/
+
+body{
+    width:1920px;
+    margin-top: 0px;
+}
+
+a{
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+}
+
+input[type='radio']{
+    width: 15px;
+    height: 15px;
+}
